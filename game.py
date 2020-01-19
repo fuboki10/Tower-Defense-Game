@@ -1,6 +1,6 @@
 import pygame
 import os
-from enemies.enemy import Enemy
+from enemies.bat import Bat
 
 class Game:
     def __init__(self, width, height):
@@ -62,7 +62,7 @@ class Game:
         Generate enemies
         :return: None
         """
-        self.enemies.append(Enemy())
+        self.enemies.append(Bat())
 
 g = Game(1000, 700)
 g.run()
