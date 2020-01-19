@@ -8,7 +8,8 @@ class Enemy:
         self.health = 20
         self.imgs = [pygame.image.load(os.path.join("assets", "bl-1-Monster No001-1.png")).convert_alpha()]
         self.img = None
-        self.health = 0
+        self.max_health = 10
+        self.health = self.max_health-5
         self.animation_count = 0
         self.speed = 1
         self.path = [(21, 460), (314, 462), (371, 447), (398, 403), (407, 295), (430, 246), (478, 223), (522, 230), (564, 247), (591, 287), (598, 338), (625, 371), (666, 395), (718, 396), (770, 406), (802, 430), (851, 458), (899, 469), (958, 470), (998, 471)]
@@ -29,6 +30,20 @@ class Enemy:
             self.animation_count = 0
         window.blit(self.img, (self.x - self.img.get_width()/2, self.y - self.img.get_height()/2 - 35))
         self.move()
+        self.draw_health_bar(window)
+
+    def draw_health_bar(self, window):
+        """
+        Draw Health bar
+        :param window: surface
+        :return: None
+        """
+        length = 50
+        move_by = round(length / self.max_health)
+        health_bar = move_by * self.health
+
+        pygame.draw.rect(window, (255, 0, 0), (self.x - 30, self.y - 75, length, 10), 0)
+        pygame.draw.rect(window, (0, 255, 0), (self.x - 30, self.y - 75, health_bar, 10), 0)
 
     def collide(self, x, y):
         """
