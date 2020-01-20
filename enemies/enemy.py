@@ -46,12 +46,12 @@ class Enemy:
         :param window: surface
         :return: None
         """
-        length = 50
+        length = 40
         move_by = round(length / self.max_health)
         health_bar = move_by * self.health
 
-        pygame.draw.rect(window, (255, 0, 0), (self.x - 30, self.y - 40, length, 10), 0)
-        pygame.draw.rect(window, (0, 255, 0), (self.x - 30, self.y - 40, health_bar, 10), 0)
+        pygame.draw.rect(window, (255, 0, 0), (self.x - 30, self.y - 40, length, 5), 0)
+        pygame.draw.rect(window, (0, 255, 0), (self.x - 30, self.y - 40, health_bar, 5), 0)
 
     def collide(self, x: int, y: int):
         """

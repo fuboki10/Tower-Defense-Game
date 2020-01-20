@@ -1,5 +1,7 @@
 import pygame
 import os
+import time
+import random
 from enemies.bat import Bat
 
 pygame.font.init()
@@ -20,6 +22,7 @@ class Game:
         self.towers = []
         self.lives = 10
         self.money = 100
+        self.timer = time.time()
         self.font = pygame.font.SysFont("comicsans", 30)
         self.bg = pygame.image.load(os.path.join("assets", "lvl1.jpg"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
@@ -62,7 +65,7 @@ class Game:
                 self.clicks.append(pos)
                 # print(self.clicks)
                 for enemy in self.enemies:
-                    if enemy.collide(pos[0], pos[1]):
+                    if enemy.collide(pos[0], pos[1]) and enemy.alive == True:
                         enemy.hit(1)
 
             if event.type == pygame.KEYDOWN:
@@ -75,6 +78,9 @@ class Game:
         :return: None
         """
         self.delete_dead_enemies()
+        if time.time() - self.timer >= random.randrange(2,6):
+            self.timer = time.time()
+            self.gen_enemies()
 
     def draw(self):
         """
