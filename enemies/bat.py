@@ -27,5 +27,6 @@ class Bat(Enemy):
         self.name = "bat"
         self.max_health = 10
         self.health = self.max_health
+        self.money = 1
         self.imgs_run = imgs_run[:]
         self.imgs_death = imgs_death[:]

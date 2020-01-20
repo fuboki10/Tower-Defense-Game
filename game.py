@@ -5,6 +5,7 @@ from enemies.bat import Bat
 pygame.font.init()
 
 hearts_img = pygame.image.load(os.path.join("assets", "hearts@3x.png"))
+coins_img = pygame.image.load(os.path.join("assets", "coins@3x.png"))
 
 class Game:
     def __init__(self, window, width, height):
@@ -19,7 +20,7 @@ class Game:
         self.towers = []
         self.lives = 10
         self.money = 100
-        self.life_font = pygame.font.SysFont("comicsans", 50)
+        self.font = pygame.font.SysFont("comicsans", 30)
         self.bg = pygame.image.load(os.path.join("assets", "lvl1.jpg"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.running = False
@@ -89,11 +90,18 @@ class Game:
             enemy.draw(self.window)
 
         # draw lives
-        text = self.life_font.render(str(self.lives), 1, (0, 0, 0))
+        text = self.font.render(str(self.lives), 1, (76, 28, 18))
         start_x = self.width - hearts_img.get_width() - 10
 
         self.window.blit(hearts_img, (start_x, 10))
-        self.window.blit(text, (start_x + hearts_img.get_width()/2, 15))
+        self.window.blit(text, (start_x + hearts_img.get_width()/2, 20))
+
+        # draw money
+        text = self.font.render(str(self.money), 1, (76, 28, 18))
+        start_x = self.width - coins_img.get_width() - 10
+
+        self.window.blit(coins_img, (start_x, 65))
+        self.window.blit(text, (start_x + coins_img.get_width()/2 - 10, 80))
 
         pygame.display.update()
 
@@ -115,4 +123,5 @@ class Game:
                 to_delete.append(enemy)
 
         for d in to_delete:
+            self.money += d.money
             self.enemies.remove(d)
