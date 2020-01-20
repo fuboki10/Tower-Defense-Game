@@ -94,6 +94,7 @@ class Enemy:
         """
         self.health -= damage
         if self.health <= 0:
+            self.health = 0
             self.alive = False
             self.animation_count = 0
             return True

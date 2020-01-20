@@ -2,15 +2,19 @@ import pygame
 import os
 from enemies.bat import Bat
 
+pygame.init()
+pygame.font.init()
+
+
 class Game:
-    def __init__(self, width, height):
+    def __init__(self, window, width, height):
         """
         :param width: INT
         :param height: INT
         """
         self.width = width
         self.height = height
-        self.window = pygame.display.set_mode((self.width, self.height))
+        self.window = window
         self.enemies = []
         self.towers = []
         self.lives = 10
@@ -18,11 +22,17 @@ class Game:
         self.bg = pygame.image.load(os.path.join("assets", "lvl1.jpg"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.running = False
+        self.app_running = True
         self.clicks = []
 
         self.gen_enemies()
 
     def run(self):
+        """
+        Running the Game
+        Returns True if the Application is closed else False
+        :return: bool
+        """
         self.running = True
         clock = pygame.time.Clock()
 
@@ -31,8 +41,7 @@ class Game:
             self.input()
             self.update()
             self.draw()
-
-        pygame.quit()
+        return self.app_running
 
     def input(self):
         """
@@ -43,6 +52,7 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
+                self.app_running = False
 
             pos = pygame.mouse.get_pos()
 
@@ -52,6 +62,10 @@ class Game:
                 for enemy in self.enemies:
                     if enemy.collide(pos[0], pos[1]):
                         enemy.hit(1)
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.running = False
 
     def update(self):
         """
@@ -92,6 +106,3 @@ class Game:
 
         for d in to_delete:
             self.enemies.remove(d)
-
-g = Game(1000, 700)
-g.run()
