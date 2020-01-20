@@ -5,8 +5,10 @@ import os
 class Enemy:
     def __init__(self):
         self.width = 64
-        self.health = 64
-        self.imgs = [pygame.image.load(os.path.join("assets", "bl-1-Monster No001-1.png")).convert_alpha()]
+        self.height = 64
+        self.alive = True
+        self.imgs_run = []
+        self.imgs_death = []
         self.img = None
         self.max_health = 10
         self.health = self.max_health-5
@@ -24,12 +26,18 @@ class Enemy:
         :param window: surface
         :return: None
         """
-        self.img = self.imgs[self.animation_count]
-        self.animation_count += 1
-        if self.animation_count >= len(self.imgs):
-            self.animation_count = 0
-        window.blit(self.img, (self.x - self.img.get_width()/2, self.y - self.img.get_height()/2))
-        self.move()
+        if self.alive:
+            self.img = self.imgs_run[self.animation_count]
+            self.animation_count += 1
+            if self.animation_count >= len(self.imgs_run):
+                self.animation_count = 0
+            window.blit(self.img, (self.x - self.width/2, self.y - self.height/2))
+            self.move()
+        else:
+            self.img = self.imgs_death[self.animation_count]
+            self.animation_count += 1
+            if self.animation_count < len(self.imgs_death):
+                window.blit(self.img, (self.x - self.width/2, self.y - self.height/2))
         self.draw_health_bar(window)
 
     def draw_health_bar(self, window):
@@ -52,8 +60,8 @@ class Enemy:
         :param y: int
         :return: bool
         """
-        if self.x + self.width >= x >= self.x:
-            if self.y + self.height >= y >= self.y:
+        if self.x + self.width/2 >= x >= self.x - self.width/2:
+            if self.y + self.height/2 >= y >= self.y - self.height/2:
                 return True
         return False
 
@@ -86,5 +94,7 @@ class Enemy:
         """
         self.health -= damage
         if self.health <= 0:
+            self.alive = False
+            self.animation_count = 0
             return True
         return False

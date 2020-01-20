@@ -28,21 +28,37 @@ class Game:
 
         while self.running:
             clock.tick(60)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-
-                pos = pygame.mouse.get_pos()
-
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    self.clicks.append(pos)
-                    print(self.clicks)
-
+            self.input()
+            self.update()
             self.draw()
 
         pygame.quit()
 
+    def input(self):
+        """
+        Handle user input
+        :return: None
+        """
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.running = False
+
+            pos = pygame.mouse.get_pos()
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.clicks.append(pos)
+                # print(self.clicks)
+                for enemy in self.enemies:
+                    if enemy.collide(pos[0], pos[1]):
+                        enemy.hit(1)
+
+    def update(self):
+        """
+        updates the Game
+        :return: None
+        """
+        self.delete_dead_enemies()
 
     def draw(self):
         """
@@ -63,6 +79,19 @@ class Game:
         :return: None
         """
         self.enemies.append(Bat())
+
+    def delete_dead_enemies(self):
+        """
+        Delete Dead Enemies
+        :return: None
+        """
+        to_delete = []
+        for enemy in self.enemies:
+            if enemy.alive == False and enemy.animation_count >= len(enemy.imgs_death):
+                to_delete.append(enemy)
+
+        for d in to_delete:
+            self.enemies.remove(d)
 
 g = Game(1000, 700)
 g.run()
