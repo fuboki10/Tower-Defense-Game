@@ -2,9 +2,9 @@ import pygame
 import os
 from enemies.bat import Bat
 
-pygame.init()
 pygame.font.init()
 
+hearts_img = pygame.image.load(os.path.join("assets", "hearts@3x.png"))
 
 class Game:
     def __init__(self, window, width, height):
@@ -19,6 +19,7 @@ class Game:
         self.towers = []
         self.lives = 10
         self.money = 100
+        self.life_font = pygame.font.SysFont("comicsans", 50)
         self.bg = pygame.image.load(os.path.join("assets", "lvl1.jpg"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
         self.running = False
@@ -83,8 +84,17 @@ class Game:
         for p in self.clicks:
             pygame.draw.circle(self.window, (255, 0, 0), (p[0], p[1]), 5, 0)
 
+        # Draw Enemies
         for enemy in self.enemies:
             enemy.draw(self.window)
+
+        # draw lives
+        text = self.life_font.render(str(self.lives), 1, (0, 0, 0))
+        start_x = self.width - hearts_img.get_width() - 10
+
+        self.window.blit(hearts_img, (start_x, 10))
+        self.window.blit(text, (start_x + hearts_img.get_width()/2, 15))
+
         pygame.display.update()
 
     def gen_enemies(self):

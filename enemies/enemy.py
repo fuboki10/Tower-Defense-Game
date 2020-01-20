@@ -53,7 +53,7 @@ class Enemy:
         pygame.draw.rect(window, (255, 0, 0), (self.x - 30, self.y - 40, length, 10), 0)
         pygame.draw.rect(window, (0, 255, 0), (self.x - 30, self.y - 40, health_bar, 10), 0)
 
-    def collide(self, x, y):
+    def collide(self, x: int, y: int):
         """
         Returns if position hit enemy
         :param x: int
@@ -85,7 +85,7 @@ class Enemy:
             if (self.x, self.y) >= self.path[self.path_pos + 1]:
                 self.path_pos += 1
 
-    def hit(self, damage):
+    def hit(self, damage: int):
         """
         Returns if an enemy has died and removes one health
         each call

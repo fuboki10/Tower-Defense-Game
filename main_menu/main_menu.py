@@ -6,7 +6,12 @@ logo = pygame.image.load(os.path.join("assets", "logo.png"))
 start_button = pygame.image.load(os.path.join("assets/menu", "StartButton.png"))
 
 class MainMenu:
-    def __init__(self, window, width, height):
+    def __init__(self, window, width: int, height: int):
+        """
+        :param window: surface
+        :param width: int
+        :param height: int
+        """
         self.width = width
         self.height = height
         self.bg = pygame.image.load(os.path.join("assets", "lvl1.jpg"))
