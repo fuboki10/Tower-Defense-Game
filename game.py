@@ -3,6 +3,7 @@ import os
 import time
 import random
 from enemies.bat import Bat
+from enemies.angry_bat import AngryBat
 
 pygame.font.init()
 
@@ -116,7 +117,11 @@ class Game:
         Generate enemies
         :return: None
         """
-        self.enemies.append(Bat())
+        if random.random() >= 0.5:
+            self.enemies.append(Bat())
+        else:
+            self.enemies.append(AngryBat())
+
 
     def delete_dead_enemies(self):
         """
