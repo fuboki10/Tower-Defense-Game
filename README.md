@@ -35,7 +35,7 @@
     <img src="assets/logo.png" alt="Logo" width="100" height="100">
   </a>
 
-  <h3 align="center">Tower Defence Game</h3>
+  <h3 align="center">Tower Defense Game</h3>
 
   <p align="center">
     An awesome Tower Defence Game with PyGame!
