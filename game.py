@@ -92,7 +92,7 @@ class Game:
             tower.update(dt)
 
         for enemy in self.enemies:
-            enemy.update()
+            enemy.update(dt)
 
     def draw(self):
         """

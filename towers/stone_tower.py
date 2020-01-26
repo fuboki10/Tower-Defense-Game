@@ -42,12 +42,11 @@ class StoneTower(Tower):
         window.blit(img[0], self.pos[0])
         window.blit(img[2], self.pos[2])
 
-    def animate(self, dt):
+    def animate(self):
         """
         Animates the tower
         :return: None
         """
-        self.timer += dt
         if self.current_mode == self.mode['up']:
             pos1 = list(self.pos[1])
             pos2 = list(self.pos[2])
@@ -87,7 +86,8 @@ class StoneTower(Tower):
             self.current_mode = self.mode['up']
 
     def update(self, dt):
-        self.animate(dt)
+        self.timer += dt
+        self.animate()
 
         if self.selected:
             self.attack()
