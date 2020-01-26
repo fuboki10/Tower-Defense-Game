@@ -24,7 +24,7 @@ class Game:
         self.towers = []
         self.lives = 10
         self.money = 100
-        self.timer = time.time()
+        self.timer = 0
         self.font = pygame.font.SysFont("comicsans", 30)
         self.bg = pygame.image.load(os.path.join("assets", "lvl1.jpg"))
         self.bg = pygame.transform.scale(self.bg, (self.width, self.height))
@@ -44,9 +44,9 @@ class Game:
         self.towers.append(StoneTower(320, 380))
 
         while self.running:
-            clock.tick(300)
+            dt = clock.tick(300)
             self.input()
-            self.update()
+            self.update(dt)
             self.draw()
         return self.app_running
 
@@ -69,20 +69,30 @@ class Game:
                 for enemy in self.enemies:
                     if enemy.collide(pos[0], pos[1]) and enemy.alive:
                         enemy.hit(1)
+                for tower in self.towers:
+                    tower.click(pos[0], pos[1])
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.running = False
 
-    def update(self):
+    def update(self, dt):
         """
         updates the Game
+        :param dt: Clock.tick()
         :return: None
         """
         self.delete_dead_enemies()
-        if time.time() - self.timer >= random.randrange(2, 6):
-            self.timer = time.time()
+        self.timer += dt
+        if self.timer >= 3000:
+            self.timer = self.timer % 3000
             self.gen_enemies()
+
+        for tower in self.towers:
+            tower.update(dt)
+
+        for enemy in self.enemies:
+            enemy.update()
 
     def draw(self):
         """

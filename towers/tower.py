@@ -18,6 +18,7 @@ class Tower:
         self.max_health = 10
         self.health = self.max_health
         self.place_color = (0, 0, 255, 100)
+        self.timer = 0
 
     def draw(self, window):
         """
@@ -45,8 +46,8 @@ class Tower:
         :param y: int
         :return: Bool
         """
-        if self.x + self.width >= x >= self.x:
-            if self.y + self.height >= y >= self.y:
+        if self.x + self.width // 2 >= x >= self.x - self.width // 2:
+            if self.y + self.height // 2 >= y >= self.y - self.height // 2:
                 self.selected = True
                 return True
         self.selected = False
@@ -97,7 +98,7 @@ class Tower:
         :param window: surface
         :return: None
         """
-        #if self.selected:
+        # if self.selected:
         surface = pygame.Surface((self.range * 4, self.range * 4), pygame.SRCALPHA, 32)
         pygame.draw.circle(surface, (128, 128, 128, 100), (self.range, self.range), self.range, 0)
 
@@ -107,3 +108,6 @@ class Tower:
         pygame.draw.circle(surface, self.place_color, (50, 50), 50, 0)
 
         window.blit(surface, (self.x - 50, self.y - 50))
+
+    def update(self, dt):
+        pass

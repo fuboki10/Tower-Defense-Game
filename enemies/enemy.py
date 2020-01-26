@@ -54,12 +54,9 @@ class Enemy:
         :param window: surface
         :return: None
         """
-        self.animate()
-
         if self.alive or (not self.alive and self.animation_count == len(self.imgs_death)):
             window.blit(self.img, (self.x - self.width/2, self.y - self.height/2))
             self.draw_health_bar(window)
-            self.move()
 
 
     def draw_health_bar(self, window):
@@ -128,3 +125,7 @@ class Enemy:
             return True
 
         return False
+
+    def update(self):
+        self.animate()
+        self.move()

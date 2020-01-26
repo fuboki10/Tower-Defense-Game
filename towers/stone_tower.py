@@ -26,10 +26,8 @@ class StoneTower(Tower):
         self.move_range.append((self.y, self.y - self.height // 3))
         self.mode = {'up': 0, 'down': 1, 'stop': 2}
         self.current_mode = self.mode['stop']
-        self.selected = True
-        self.speed = 1
-
-        self.attack()
+        self.selected = False
+        self.speed = 10  # 100 moves per second
 
     def draw(self, window):
         """
@@ -38,23 +36,23 @@ class StoneTower(Tower):
         :return: None
         """
         self.draw_radius(window)
-        self.animate()
         super().draw_health_bar(window)
         img = self.imgs[self.level - 1]
         window.blit(img[1], self.pos[1])
         window.blit(img[0], self.pos[0])
         window.blit(img[2], self.pos[2])
 
-    def animate(self):
+    def animate(self, dt):
         """
         Animates the tower
         :return: None
         """
+        self.timer += dt
         if self.current_mode == self.mode['up']:
             pos1 = list(self.pos[1])
             pos2 = list(self.pos[2])
-            pos1[1] -= self.speed
-            pos2[1] -= self.speed
+            pos1[1] -= self.timer // self.speed
+            pos2[1] -= self.timer // self.speed
             self.pos[1] = tuple(pos1)
             self.pos[2] = tuple(pos2)
             if pos1[1] <= self.move_range[1][1] or pos2[1] <= self.move_range[2][1]:
@@ -67,20 +65,29 @@ class StoneTower(Tower):
         elif self.current_mode == self.mode['down']:
             pos1 = list(self.pos[1])
             pos2 = list(self.pos[2])
-            pos1[1] += self.speed
-            pos2[1] += self.speed
+            pos1[1] += self.timer // self.speed
+            pos2[1] += self.timer // self.speed
             self.pos[1] = tuple(pos1)
             self.pos[2] = tuple(pos2)
             if pos1[1] >= self.move_range[1][0] or pos2[1] >= self.move_range[2][0]:
-                self.current_mode = self.mode['up']
+                self.current_mode = self.mode['stop']
                 pos1[1] = self.move_range[1][0]
                 pos2[1] = self.move_range[2][0]
                 self.pos[1] = tuple(pos1)
                 self.pos[2] = tuple(pos2)
+
+        self.timer = self.timer % self.speed
 
     def attack(self):
         """
         Attack
         :return: None
         """
-        self.current_mode = self.mode['up']
+        if self.current_mode == self.mode['stop']:
+            self.current_mode = self.mode['up']
+
+    def update(self, dt):
+        self.animate(dt)
+
+        if self.selected:
+            self.attack()
