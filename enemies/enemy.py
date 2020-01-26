@@ -18,7 +18,7 @@ class Enemy:
         self.health = self.max_health
         self.animation_count = 0
         self.timer = 0
-        self.speed = 1
+        self.speed = 1000 // 30  # 30 steps per second
         self.animation_speed = 1000 // 48  # 48 times per second
         self.path = [(21, 460), (314, 462), (371, 447), (398, 403), (407, 295), (430, 246), (478, 223), (522, 230), (564, 247), (591, 287), (598, 338), (625, 371), (666, 395), (718, 396), (770, 406), (802, 430), (851, 458), (899, 469), (958, 470), (998, 471)]
         self.path_pos = 0
@@ -101,8 +101,8 @@ class Enemy:
             mag = math.sqrt((x2 - x1)**2 + (y2 - y1)**2)
             if mag != 0:
                 self.direction = ((x2 - x1) / mag, (y2 - y1) / mag)
-                self.x += self.direction[0] * self.speed
-                self.y += self.direction[1] * self.speed
+                self.x += self.direction[0] * (self.timer / self.speed)
+                self.y += self.direction[1] * (self.timer / self.speed)
                 if (self.x, self.y) >= self.path[self.path_pos + 1]:
                     self.path_pos += 1
 

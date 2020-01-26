@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f0c17913-8e3c-4ee7-bc34-b46b164ed7b1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/enemies/enemy.py" beforeDir="false" afterPath="$PROJECT_DIR$/enemies/enemy.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/towers/stone_tower.py" beforeDir="false" afterPath="$PROJECT_DIR$/towers/stone_tower.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,7 +11,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Tower_Defense_Game$main.coverage" NAME="main Coverage Results" MODIFIED="1580078372072" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Tower_Defense_Game$main.coverage" NAME="main Coverage Results" MODIFIED="1580078841634" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Tower_Defence_Game$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1579469841922" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Tower_Defence_Game$game.coverage" NAME="main Coverage Results" MODIFIED="1579493602729" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
@@ -103,8 +101,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/enemies/enemy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="58" column="67" lean-forward="true" selection-start-line="58" selection-start-column="67" selection-end-line="58" selection-end-column="67" />
+            <state relative-caret-position="340">
+              <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -232,12 +230,12 @@
       <workItem from="1579470822358" duration="20112000" />
       <workItem from="1579797568598" duration="11549000" />
       <workItem from="1580045693806" duration="4390000" />
-      <workItem from="1580071543132" duration="6845000" />
+      <workItem from="1580071543132" duration="7215000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49295000" />
+    <option name="totallyTimeSpent" value="49665000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -358,8 +356,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/enemies/enemy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="58" column="67" lean-forward="true" selection-start-line="58" selection-start-column="67" selection-end-line="58" selection-end-column="67" />
+        <state relative-caret-position="340">
+          <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
