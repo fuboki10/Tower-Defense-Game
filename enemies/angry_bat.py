@@ -20,6 +20,16 @@ for i in range(24):
         pygame.image.load(os.path.join("assets/enemies/2/Death2", "Version1_Death2_" + add_str + ".png")),
         (64, 64)))
 
+imgs_hit = []
+for i in range(24):
+    add_str = str(i)
+    if i < 10:
+        add_str = "0" + add_str
+    imgs_hit.append(pygame.transform.scale(
+        pygame.image.load(os.path.join("assets/enemies/2/Hit", "Version1_Hit_" + add_str + ".png")),
+        (64, 64)))
+
+
 
 class AngryBat(Enemy):
     def __init__(self):
@@ -30,4 +40,5 @@ class AngryBat(Enemy):
         self.money = 2
         self.imgs_run = imgs_run[:]
         self.imgs_death = imgs_death[:]
+        self.imgs_hit = imgs_hit[:]
         self.damage = 2

@@ -43,6 +43,7 @@ class Enemy:
         # if mode is hit
         elif self.current_mode == self.mode['hit']:
             self.img = self.imgs_hit[self.animation_count]
+            self.animation_count += 1
             if self.animation_count >= len(self.imgs_hit):
                 self.animation_count = 0
                 self.current_mode = self.mode['run']
@@ -57,9 +58,9 @@ class Enemy:
 
         if self.alive or (not self.alive and self.animation_count == len(self.imgs_death)):
             window.blit(self.img, (self.x - self.width/2, self.y - self.height/2))
+            self.draw_health_bar(window)
             self.move()
 
-        self.draw_health_bar(window)
 
     def draw_health_bar(self, window):
         """

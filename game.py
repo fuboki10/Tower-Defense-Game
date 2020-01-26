@@ -64,7 +64,7 @@ class Game:
             pos = pygame.mouse.get_pos()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                self.clicks.append(pos)
+                # self.clicks.append(pos)
                 # print(self.clicks)
                 for enemy in self.enemies:
                     if enemy.collide(pos[0], pos[1]) and enemy.alive:
