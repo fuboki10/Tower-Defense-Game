@@ -4,6 +4,7 @@ import time
 import random
 from enemies.bat import Bat
 from enemies.angry_bat import AngryBat
+from towers.stone_tower import StoneTower
 
 pygame.font.init()
 
@@ -31,8 +32,6 @@ class Game:
         self.app_running = True
         self.clicks = []
 
-        self.gen_enemies()
-
     def run(self):
         """
         Running the Game
@@ -41,6 +40,8 @@ class Game:
         """
         self.running = True
         clock = pygame.time.Clock()
+        self.gen_enemies()
+        self.towers.append(StoneTower(320, 380))
 
         while self.running:
             clock.tick(300)
@@ -66,7 +67,7 @@ class Game:
                 self.clicks.append(pos)
                 # print(self.clicks)
                 for enemy in self.enemies:
-                    if enemy.collide(pos[0], pos[1]) and enemy.alive == True:
+                    if enemy.collide(pos[0], pos[1]) and enemy.alive:
                         enemy.hit(1)
 
             if event.type == pygame.KEYDOWN:
@@ -79,7 +80,7 @@ class Game:
         :return: None
         """
         self.delete_dead_enemies()
-        if time.time() - self.timer >= random.randrange(2,6):
+        if time.time() - self.timer >= random.randrange(2, 6):
             self.timer = time.time()
             self.gen_enemies()
 
@@ -91,6 +92,10 @@ class Game:
         self.window.blit(self.bg, (0, 0))
         for p in self.clicks:
             pygame.draw.circle(self.window, (255, 0, 0), (p[0], p[1]), 5, 0)
+
+        # Draw Towers
+        for tower in self.towers:
+            tower.draw(self.window)
 
         # Draw Enemies
         for enemy in self.enemies:
@@ -122,7 +127,6 @@ class Game:
         else:
             self.enemies.append(AngryBat())
 
-
     def delete_dead_enemies(self):
         """
         Delete Dead Enemies
@@ -130,7 +134,7 @@ class Game:
         """
         to_delete = []
         for enemy in self.enemies:
-            if enemy.alive == False and enemy.animation_count >= len(enemy.imgs_death):
+            if not enemy.alive and enemy.animation_count >= len(enemy.imgs_death):
                 to_delete.append(enemy)
 
         for d in to_delete:
