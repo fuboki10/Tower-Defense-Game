@@ -35,7 +35,7 @@ class Game:
     def run(self):
         """
         Running the Game
-        Returns True if the Application is closed else False
+        Returns False if the Application is closed else True
         :return: bool
         """
         self.running = True
@@ -83,6 +83,7 @@ class Game:
         :return: None
         """
         self.delete_dead_enemies()
+        self.delete_out_range_enemies()
         self.timer += dt
         if self.timer >= 3000:
             self.timer = self.timer % 3000
@@ -93,6 +94,8 @@ class Game:
 
         for enemy in self.enemies:
             enemy.update(dt)
+
+        self.game_over()
 
     def draw(self):
         """
@@ -150,3 +153,28 @@ class Game:
         for d in to_delete:
             self.money += d.money
             self.enemies.remove(d)
+
+    def delete_out_range_enemies(self):
+        """
+        Delete out range Enemies
+        :return: None
+        """
+        to_delete = []
+        for enemy in self.enemies:
+            if enemy.path_pos == len(enemy.path) - 1:
+                to_delete.append(enemy)
+                self.lives -= 1
+        for enemy in to_delete:
+            self.enemies.remove(enemy)
+
+    def game_over(self):
+        """
+        GameOver Handling
+        Returns True if the Game is Over else False
+        :return: Bool
+        """
+        if self.lives <= 0:
+            self.lives = 0
+            self.running = False
+            return True
+        return False

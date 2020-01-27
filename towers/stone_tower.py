@@ -30,7 +30,7 @@ class StoneTower(Tower):
         self.current_mode = self.mode['stop']
         self.selected = False
         self.speed = 10  # 100 moves per second
-        self.damage = 5
+        self.damage = 1
         self.shot = Stone(0, 0, self.damage)
         self.target = (-1, -1)
         self.range = 200
