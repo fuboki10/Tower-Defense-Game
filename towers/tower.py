@@ -14,7 +14,7 @@ class Tower:
         self.damage = 1
         self.selected = False
         self.menu = None
-        self.range = 0
+        self.range = 100
         self.max_health = 10
         self.health = self.max_health
         self.place_color = (0, 0, 255, 100)
@@ -94,16 +94,22 @@ class Tower:
 
     def draw_radius(self, window):
         """
-        draw ranage circle
+        draw range circle
         :param window: surface
         :return: None
         """
-        # if self.selected:
-        surface = pygame.Surface((self.range * 4, self.range * 4), pygame.SRCALPHA, 32)
-        pygame.draw.circle(surface, (128, 128, 128, 100), (self.range, self.range), self.range, 0)
+        if self.selected:
+            surface = pygame.Surface((self.range * 4, self.range * 4), pygame.SRCALPHA, 32)
+            pygame.draw.circle(surface, (128, 128, 128, 100), (self.range, self.range), self.range, 0)
 
-        window.blit(surface, (self.x - self.range, self.y - self.range))
-        # draw range circle
+            window.blit(surface, (self.x - self.range, self.y - self.range))
+
+    def draw_placement(self, window):
+        """
+        draw place circle
+        :param window: surface
+        :return: None
+        """
         surface = pygame.Surface((self.range * 4, self.range * 4), pygame.SRCALPHA, 32)
         pygame.draw.circle(surface, self.place_color, (50, 50), 50, 0)
 

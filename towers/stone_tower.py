@@ -1,6 +1,7 @@
 import pygame
 import os
 from .tower import Tower
+from shots.stone import Stone
 
 imgs = []
 for i in range(3):
@@ -28,6 +29,7 @@ class StoneTower(Tower):
         self.current_mode = self.mode['stop']
         self.selected = False
         self.speed = 10  # 100 moves per second
+        self.shot = Stone(0, 0, (2000, 2000))
 
     def draw(self, window):
         """
@@ -39,6 +41,7 @@ class StoneTower(Tower):
         super().draw_health_bar(window)
         img = self.imgs[self.level - 1]
         window.blit(img[1], self.pos[1])
+        self.shot.draw(window)
         window.blit(img[0], self.pos[0])
         window.blit(img[2], self.pos[2])
 
@@ -55,6 +58,7 @@ class StoneTower(Tower):
             self.pos[1] = tuple(pos1)
             self.pos[2] = tuple(pos2)
             if pos1[1] <= self.move_range[1][1] or pos2[1] <= self.move_range[2][1]:
+                self.shot.attack((366, 449))
                 self.current_mode = self.mode['down']
                 pos1[1] = self.move_range[1][1]
                 pos2[1] = self.move_range[2][1]
@@ -75,6 +79,8 @@ class StoneTower(Tower):
                 self.pos[1] = tuple(pos1)
                 self.pos[2] = tuple(pos2)
 
+        self.shot.move(self.pos[1][0] + self.width // 2, self.pos[1][1])
+
         self.timer = self.timer % self.speed
 
     def attack(self):
@@ -91,3 +97,4 @@ class StoneTower(Tower):
 
         if self.selected:
             self.attack()
+            self.selected = False
