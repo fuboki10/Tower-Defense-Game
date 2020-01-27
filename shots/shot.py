@@ -1,16 +1,17 @@
 import pygame
 import math
+from enemies.enemy import Enemy
 
 class Shot:
-    def __init__(self, x, y, target):
+    def __init__(self, x, y, damage):
         self.x = x
         self.y = y
-        self.target = target
+        self.target = None
         self.imgs = []
         self.animation_count = 0
         self.timer = 0
-        self.speed = 3
-        self.damage = 1
+        self.speed = 5
+        self.damage = damage
         self.mode = {'attack': 0, 'stop': 1, 'boom': 2}
         self.current_mode = self.mode['stop']
 
@@ -29,15 +30,17 @@ class Shot:
         Move the Shot
         :return: None
         """
-        dis = math.sqrt((self.x - self.target[0]) ** 2 + (self.y - self.target[1]) ** 2)
-        if dis <= self.speed and self.current_mode == self.mode['attack']:
+        dis = self.speed
+        if self.target:
+            dis = math.sqrt((self.x - self.target.x) ** 2 + (self.y - self.target.y) ** 2)
+        if dis < self.speed and self.current_mode == self.mode['attack']:
             self.current_mode = self.mode['boom']
 
         if self.current_mode == self.mode['stop']:
             self.x = x
             self.y = y
         elif self.current_mode == self.mode['attack']:
-            direction = math.atan2(self.target[1] - self.y, self.target[0] - self.x) * (180 / math.pi)
+            direction = math.atan2(self.target.y - self.y, self.target.x - self.x) * (180 / math.pi)
             mv_x = math.cos(direction * math.pi / 180) * self.speed
             mv_y = math.sin(direction * math.pi / 180) * self.speed
             self.x += mv_x
@@ -46,8 +49,13 @@ class Shot:
             self.animation_count += 1
             if self.animation_count >= len(self.imgs):
                 self.animation_count = 0
+                self.target.hit(self.damage)
+                self.target = None
                 self.current_mode = self.mode['stop']
 
     def attack(self, target):
         self.target = target
         self.current_mode = self.mode['attack']
+
+    def attacking(self):
+        return self.current_mode == self.mode['attack']

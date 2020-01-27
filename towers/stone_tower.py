@@ -1,5 +1,6 @@
 import pygame
 import os
+import math
 from .tower import Tower
 from shots.stone import Stone
 
@@ -29,7 +30,10 @@ class StoneTower(Tower):
         self.current_mode = self.mode['stop']
         self.selected = False
         self.speed = 10  # 100 moves per second
-        self.shot = Stone(0, 0, (2000, 2000))
+        self.damage = 5
+        self.shot = Stone(0, 0, self.damage)
+        self.target = (-1, -1)
+        self.range = 200
 
     def draw(self, window):
         """
@@ -58,7 +62,7 @@ class StoneTower(Tower):
             self.pos[1] = tuple(pos1)
             self.pos[2] = tuple(pos2)
             if pos1[1] <= self.move_range[1][1] or pos2[1] <= self.move_range[2][1]:
-                self.shot.attack((366, 449))
+                self.shot.attack(self.target)
                 self.current_mode = self.mode['down']
                 pos1[1] = self.move_range[1][1]
                 pos2[1] = self.move_range[2][1]
@@ -83,18 +87,28 @@ class StoneTower(Tower):
 
         self.timer = self.timer % self.speed
 
-    def attack(self):
+    def attack(self, enemies):
         """
         Attack
         :return: None
         """
-        if self.current_mode == self.mode['stop']:
-            self.current_mode = self.mode['up']
+        if not self.shot.attacking():
+            enemy_closest = []
+            inRange = False
+            for enemy in enemies:
+                if not enemy.alive:
+                    continue
+                x = enemy.x
+                y = enemy.y
+                dis = math.sqrt((self.x - enemy.width/2 - x) ** 2 + (self.y - enemy.height/2 - y) ** 2)
+                if dis < self.range:
+                    inRange = True
+                    enemy_closest.append(enemy)
+            if inRange and self.current_mode == self.mode['stop']:
+                self.target = enemy_closest[0]
+                self.current_mode = self.mode['up']
 
-    def update(self, dt):
+    def update(self, dt, enemies):
         self.timer += dt
         self.animate()
-
-        if self.selected:
-            self.attack()
-            self.selected = False
+        self.attack(enemies)

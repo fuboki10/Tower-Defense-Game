@@ -89,7 +89,7 @@ class Game:
             self.gen_enemies()
 
         for tower in self.towers:
-            tower.update(dt)
+            tower.update(dt, self.enemies)
 
         for enemy in self.enemies:
             enemy.update(dt)
