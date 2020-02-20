@@ -112,7 +112,11 @@ python main.py
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+![Screenshot 1](https://user-images.githubusercontent.com/35429211/74982527-f695ba00-543c-11ea-8bd2-d96f78c9f7f2.png)
 
+![Screenshot 2](https://user-images.githubusercontent.com/35429211/74982539-fb5a6e00-543c-11ea-9f8e-306fe7fa6243.png)
+
+![Screenshot 3](https://user-images.githubusercontent.com/35429211/74982558-044b3f80-543d-11ea-8940-86971975e225.png)
 
 
 <!-- ROADMAP -->
